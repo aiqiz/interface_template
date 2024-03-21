@@ -27,25 +27,27 @@ def pages(request):
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
+        print("Click Once")
         load_template = request.path.split('/')[-1]
         context['segment'] = load_template
+        print(load_template)
+        
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
         
-        print(1)
-        if context['segment'] == "rawdata.html":
-            print("success")
-            data = RawData.objects.all
-            context1 = {
-                'data': data
-            }
-            return render(request, "home/rawdata.html", context1)
+        if load_template == "rawdata.html":
+            all_data = RawData.objects.all
+            context['all_data'] = all_data
+            
+            html_template = loader.get_template('home/' + load_template)
+            return HttpResponse(html_template.render(context, request))
+        
+
         
         html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
-
         html_template = loader.get_template('home/page-404.html')
         return HttpResponse(html_template.render(context, request))
 
