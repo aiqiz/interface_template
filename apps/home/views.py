@@ -28,24 +28,20 @@ def pages(request):
     # Pick out the html file name from the url. And load that template.
     try:
         load_template = request.path.split('/')[-1]
-        print("load_template", load_template)
         context['segment'] = load_template
-        print(context)
-        html_template = loader.get_template('home/' + load_template)
-        print(1)
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
         
         print(1)
-        print(context['segment'], "rawdata.html")
         if context['segment'] == "rawdata.html":
             print("success")
             data = RawData.objects.all
-            context_1 = {
+            context1 = {
                 'data': data
             }
-            return render(request, "home/rawdata.html", context_1)
+            return render(request, "home/rawdata.html", context1)
         
+        html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
