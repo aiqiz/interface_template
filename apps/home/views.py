@@ -42,8 +42,6 @@ def pages(request):
             html_template = loader.get_template('home/' + load_template)
             return HttpResponse(html_template.render(context, request))
         
-
-        
         html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))
 
