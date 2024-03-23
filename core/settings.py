@@ -6,6 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 from decouple import config
 from unipath import Path
+import pymysql
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -70,12 +71,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-
+pymysql.install_as_MySQLdb()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demo1_0',
+        'NAME': 'demo2_0',
         'USER': 'root',
         'PASSWORD': 'Angela040804!',
         'HOST': '127.0.0.1',
